@@ -1,0 +1,219 @@
+{
+    // -------------------------------------------------------------------------
+    // Global configuration
+    // -------------------------------------------------------------------------
+
+    "layer": "top",
+
+    "position": "top",
+
+    //"height": 20,
+
+    "margin-left": 0,
+    "margin-bottom": 0,
+    "margin-right": 0,
+
+    "spacing": 5, // Gaps between modules (4px)
+
+    "modules-left": [
+	    //"custom/wallpaper",
+        "hyprland/workspaces",
+        //"temperature",
+        "mpris",
+        //"image#album-art",
+        //"custom/skipper",
+        "cava"
+    ],
+    "modules-center": [
+        //"hyprland/window"
+        "clock#date"
+    ],
+    "modules-right": [
+        //"backlight",
+        //"custom/storage",
+        "memory",
+        "cpu",
+        //"battery",
+        //"pulseaudio",
+        "wireplumber",
+        "hyprland/language",
+        "tray",
+        "custom/power"
+    ],
+
+
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+    
+    "hyprland/workspaces": {
+        "all-outputs": true,
+        "format": "{name}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1 1>/dev/null",
+        "on-scroll-down": "hyprctl dispatch workspace e-1 1>/dev/null",
+        "sort-by-number": true,
+        "active-only": false,
+    },
+
+    "custom/wallpaper":{
+        "format": "W",
+        "on-click": "~/.config/waybar/modules/wallpaper.sh",
+        "tooltip": false
+    },
+
+    "mpris": {
+        "format": "{status_icon}",// {dynamic}",
+        "tooltip": false,
+        "interval": 1,
+        "dynamic-len": 40,
+	    "dynamic-order": ["artist", "title"],
+	    //"ignored-players": ["firefox"],
+        "on-click": "playerctl play-pause"//"playerctl next"
+    },
+
+    "custom/skipper": {
+        "format": "󰒭",
+        "tooltip": false,
+        "on-click": "playerctl next"
+    },
+
+    "image#album-art": {
+	    "path": "/tmp/audacious-temp-*",
+        "size": 32,
+	    "interval": 5,
+	    "on-click": "mpc toggle"
+    },
+
+    // Requires cava installed
+    "cava": {
+        "framerate": 24,
+        "autosens": 2,
+        "sensitivity": 2,
+        "bars": 15,
+        "method": "pipewire",
+        "source": "auto",
+        "stereo": false,
+        "bar_delimiter": 0,
+        //"monstercat": true,
+        "noise_reduction": 0.5,
+        "input_delay": 1,
+        "hide_on_silence": false,
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+        "actions": {
+            "click-right": "mode"
+        }
+    },
+
+    "temperature": {
+        // "thermal-zone": 1,
+        "interval": 4,
+        //"hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": " {temperatureC}°C",
+        "format-critical": "  {temperatureC}°C",
+        "format": "{icon}  {temperatureC}°C",
+        "format-icons": ["", "", ""],
+        "max-length": 7,
+        "min-length": 7,
+        //"on-click": "xsensors"
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "  {used:0.2f} / {total:0.0f} GB",
+        "on-click": "alacritty -e btop"
+    },
+
+    "battery": {
+        "interval": 2,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "wlogout"
+    },
+
+    "clock#date": {
+        "format": "{:%H:%M   %e.%m.%y}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "today-format": "<b>{}</b>"
+    },
+
+    "cpu": {
+        "interval": 1,
+        //"format": " {}%", // Icon: microchip
+        "format": "{max_frequency}GHz <span color=\"darkgray\">| {usage}%</span>",
+        "max-length": 13,
+        "min-length": 13
+    },
+
+    "hyprland/window": {
+        "max-length": 100,
+        "separate-outputs": true
+    },
+
+    "hyprland/language": {
+	    "format": "{shortDescription}",
+    },
+
+    "pulseaudio": {
+        "scroll-step": 3, // %, can be a float
+        "format": "{icon} {volume}% {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        //"format-source": "{volume}% ",
+        //"format-source-muted": "",
+        "format-source": "",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "amixer sset Master toggle"
+    },
+
+    "wireplumber": {
+        "on-click": "pavucontrol",
+        "on-click-right": "amixer sset Master toggle 1>/dev/null",
+        //on-click: "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        //on-scroll-down: "${wpctl} set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 0.04+";
+        //on-scroll-up: "${wpctl} set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 0.04-";
+        "format": "<span foreground='#fab387'>{icon}</span>  {volume}%",
+        "format-muted": " ",
+        "format-source": "",
+        "format-source-muted": "",
+        //"format-muted": "<span foreground='#fab387'> </span>",
+        //"format-icons": [ "<span foreground='#fab387'></span>" ]
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+            "default": [" ", " ", " "]
+        },
+    },
+
+    "tray": {
+        "icon-size": 15,
+        "spacing": 5
+    }
+}

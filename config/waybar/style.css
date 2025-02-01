@@ -1,0 +1,205 @@
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 8pt;
+  font-weight: 900;
+  margin: 0;
+  padding: 0;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+
+/* Reset all styles */
+* {
+    border: none;
+    border-radius: 3px;
+    min-height: 0;
+    margin: 0.2em 0.3em 0.2em 0.3em;
+}
+
+/* The whole bar */
+#waybar {
+    /*background: @bg;*/
+    background-color: transparent;
+    /*color: @light;*/
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    /*border-top: 8px transparent;*/
+    border-radius: 0px;
+    margin: 0px 0px;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces button {
+  padding: 0 0px;
+  color: #7984a4;
+  background-color: transparent;
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each workspace name */
+  border: none;
+  border-radius: 0;
+}
+
+#workspaces button.focused {
+  background-color: transparent;
+}
+#workspace button.hover {
+  background-color: transparent;
+}
+#workspaces button.active {
+  color: #fff;
+}
+
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+#window {
+  /* border-radius: 20px; */
+  /* padding-left: 10px; */
+  /* padding-right: 10px; */
+  color: #64727d;
+}
+
+/* Each module */
+#window,
+#workspaces,
+#clock,
+#cava,
+#mpris,
+#custom-skipper,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#wireplumber,
+#tray,
+#mode,
+#bluetooth,
+#custom-power-menu,
+#language 
+#custom-power {
+  padding: 0px 10px;
+  color: #e5e5e5;
+  /* color: #bf616a; */
+  border-radius: 5px;
+  background-color: #1e1e1e;
+}
+
+#cava {
+  padding: 0px 5px;
+}
+
+#custom-skipper {
+  font-size: 12pt;
+}
+
+#cpu {
+  color: #fb958b;
+  background-color: #1e1e1e;
+}
+
+#memory {
+  color: #ebcb8b;
+  background-color: #1e1e1e;
+}
+
+#custom-power-menu {
+  border-radius: 9.5px;
+  background-color: #1b242b;
+  border-radius: 7.5px;
+  padding: 0 0px;
+}
+
+#custom-launcher {
+  background-color: #1b242b;
+  color: #6a92d7;
+  border-radius: 7.5px;
+  padding: 0 0px;
+}
+
+#pulseaudio {
+  color: #7d9bba;
+}
+
+#battery {
+  color: #c0caf5;
+  /* background-color: #90b1b1; */
+}
+
+#battery.charging,
+#battery.full,
+#battery.plugged {
+  color: #26a65b;
+  /* background-color: #26a65b; */
+}
+
+@keyframes blink {
+  to {
+    background-color: rgba(30, 34, 42, 0.5);
+    color: #abb2bf;
+  }
+}
+
+#battery.critical:not(.charging) {
+  color: #f53c3c;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  background-color: #000000;
+}
+
+#bluetooth {
+  color: #707d9d;
+}
+
+#bluetooth.disconnected {
+  color: #f53c3c;
+}
+
+#network {
+  color: #b48ead;
+}
+
+#network.disconnected {
+  color: #f53c3c;
+}
+
+#temperature {
+  background-color: #f0932b;
+}
+
+#temperature.critical {
+  background-color: #eb4d4b;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
+}
+
+#idle_inhibitor {
+  background-color: #2d3436;
+}
+
+#idle_inhibitor.activated {
+  background-color: #ecf0f1;
+  color: #2d3436;
+}
