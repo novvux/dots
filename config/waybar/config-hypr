@@ -18,11 +18,10 @@
     "modules-left": [
 	    //"custom/wallpaper",
         "hyprland/workspaces",
-        //"temperature",
-        "mpris",
         //"image#album-art",
         //"custom/skipper",
-        "cava"
+        "cava",
+        "mpris"
     ],
     "modules-center": [
         //"hyprland/window"
@@ -33,6 +32,7 @@
         //"custom/storage",
         "memory",
         "cpu",
+        "temperature",
         //"battery",
         //"pulseaudio",
         "wireplumber",
@@ -62,10 +62,10 @@
     },
 
     "mpris": {
-        "format": "{status_icon}",// {dynamic}",
+        "format": "{dynamic}",
         "tooltip": false,
         "interval": 1,
-        "dynamic-len": 40,
+        "dynamic-len": 100,
 	    "dynamic-order": ["artist", "title"],
 	    //"ignored-players": ["firefox"],
         "on-click": "playerctl play-pause"//"playerctl next"
@@ -88,15 +88,15 @@
     "cava": {
         "framerate": 24,
         "autosens": 2,
-        "sensitivity": 2,
-        "bars": 15,
+        "sensitivity": 3,
+        "bars": 30,
         "method": "pipewire",
         "source": "auto",
         "stereo": false,
         "bar_delimiter": 0,
-        //"monstercat": true,
+        "monstercat": true,
         "noise_reduction": 0.5,
-        "input_delay": 1,
+        "input_delay": 0.1,
         "hide_on_silence": false,
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
         "actions": {
