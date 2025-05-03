@@ -1,0 +1,18 @@
+[general]
+framerate = 30
+autosens = 1
+bars = 60
+sensitivity = 250
+sleep_timer = 1
+
+[output]
+method = raw
+raw_target = /dev/stdout
+data_format = ascii
+ascii_max_range = 7
+channels = mono
+mono_option = average
+reverse = 0
+
+[smoothing]
+monstercat = 1

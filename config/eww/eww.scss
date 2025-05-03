@@ -1,0 +1,107 @@
+$rosewater: #f5e0dc;
+$flamingo: #f2cdcd;
+$pink: #f5c2e7;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
+$sky: #89dceb;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
+
+
+* {
+  all: unset;
+  font-size: 12px;
+  border-radius: 10px;
+  color: $text;
+}
+
+.bar {
+  padding: 0px 10px;
+  background-color: rgba($color: $base, $alpha: 0.2);
+}
+
+.left {
+  background-color: $base;
+  padding: 0px 10px;
+}
+
+.center {
+  background-color: $base;
+}
+
+.right {
+  background-color: $base;
+  padding: 0px 10px;
+}
+
+.cava {
+  margin: 0px 10px;
+  color: rgba($color: $peach, $alpha: 0.7);
+}
+
+.track {
+  margin: 0 10px;
+}
+
+.ram {
+  color: #ebcb8b;
+}
+
+.cpu {
+  color: #fb958b;
+}
+
+.temp {
+  background-color: $surface0;
+  padding: 0px 5px;
+}
+
+.workspaces {
+  background-color: $surface0;
+}
+
+.workspace {
+  margin: 0px 4px;
+  padding: 0px 8px;
+}
+
+.workspace:hover {
+  background-color: $surface1;
+}
+
+.workspace-active {
+  color: #74c7ec;
+  background-color: $surface2;
+}
+
+.date {
+  background-color: $surface0;
+  padding: 0px 5px;
+}
+
+.tray image {
+  -gtk-icon-transform: scale(0.7);
+}
+
+.pwbutton {
+  background-color: $surface0;
+  padding: 0px 5px;
+}

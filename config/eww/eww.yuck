@@ -1,0 +1,171 @@
+; eww config
+
+; ━━━━ windows ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwindow bar :monitor 0
+               :geometry (geometry :x 0 :y 0 :height "30px" :width "100%" :anchor "center top")
+               :stacking "fg" 
+               :exclusive true
+               :focusable false
+  (bar))
+
+; ━━━━ bars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget bar [] 
+  (centerbox 
+      :orientation "h"
+      :class "bar"
+    (box :class "left" :halign "start" :spacing 20 :space-evenly false
+      (workspaceWidget)
+      (speakers)
+      (activeWindow)
+    )
+    (box :class "center" :halign "center" :spacing 20
+      (cava)
+      ;(cava_reversed)
+    )
+    (box :class "right" :halign "end" :spacing 20 :space-evenly false
+      (ram)
+      (cpu)
+      (temp)
+      (tray)
+      (date)
+      (pwbutton)
+    )
+  )
+)
+
+; ━━━━ menu (not working) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(defwidget menuWidget []
+  (button :class "menuWidget" :onclick "eww open closer --arg window=menu & eww open menu" "menu")
+)
+
+(defvar username "echo 'whoami'")
+
+(defwindow menu [] 
+    :closer true
+    :monitor 0 
+    :geometry (geometry :height "70%" :width "50%" :anchor "center center")
+    :stacking "fg"
+  (box :class "menu" 
+    (box :class "userinfo" 
+      (box :class "user"
+        (box :class "pfp")
+        (literal "${username}")
+      )
+      (box :class "powerbutton")
+    )
+    (box :class "search"
+      (box :class "promt")
+    )
+  )
+)
+
+(defwindow closer [window]
+    :class "closer"
+    :monitor 0
+    :geometry (geometry :height "100%" :width "100%")
+    :focusable false
+  (button :onclick "eww close ${window} & eww close closer")
+)
+
+; ━━━━ player options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten track "playerctl metadata --follow --format '{{artist}} - {{title}}'")
+
+;(defwidget track []
+;  (box 
+;    (image :image-width "32px" :image-height "32px" :path "/media/DIMON/Ф/годные\ авы/8JOES4341eI.jpg")
+;  )
+;)
+
+(deflisten cava "cava -p ./scripts/config | while read -r line; do echo $line | sed 's/;//g;s/0/▁/g;s/1/▂/g;s/2/▃/g;s/3/▄/g;s/4/▅/g;s/5/▆/g;s/6/▇/g;s/7/█/g;'; done")
+;(deflisten cava_reversed "bash ./scripts/cava.sh")
+
+(defwidget cava []
+  (overlay
+    (label :class "cava" :text "${cava}")
+    (label :class "track" :text "${track}")
+    (button :onclick "playerctl play-pause")
+  )
+)
+
+; ━━━━ workspaces ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten workspaces "hyprland-workspaces ALL")
+
+(defwidget workspaceWidget []
+  (eventbox :onscroll "hyprctl dispatch workspace `echo {} | sed 's/up/+/\' | sed 's/down/-/'`1"
+    (box :class "workspaces"
+      (for i in {workspaces}
+        (button
+          :onclick "hyprctl dispatch workspace ${i.id}"
+          :class "workspace ${i.class}"
+          "${i.name}")))))
+
+(defpoll avtivewindow :interval "1s" "hyprctl activewindow | grep title | while read -r title name; do echo $name; done")
+
+(defwidget activeWindow []
+  (box :class "windowname"
+    (label :text avtivewindow)
+  )
+)
+
+; ━━━━ tray ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget tray []
+  (box :class "tray"
+    (systray)))
+
+; ━━━━ volume ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(deflisten speakers :initial '{ "volume": 0, "muted": "false" }' "./modules/listen-volume.sh")
+
+(defwidget speakers []
+  (tooltip 
+    (label :class "tooltip" :text "${ speakers.volume }%")
+    (box :class "speakers"
+      :space-evenly false
+      (button :class "icon ${ speakers.volume > 100 ? 'over' : '' } ${ speakers.muted ? 'muted' : '' }"
+        :onclick "pavucontrol &"  
+        (label :text "${ speakers.muted ? '󰖁 ' : 
+                        speakers.volume > 70 ? ' ' :
+                        ' ' } ${speakers.volume}% "
+        )
+      )
+    )
+  )
+)
+
+; ━━━━ date & time ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defpoll date_poll :interval "1m" "date +%d.%m.%y")
+(defpoll time_poll :interval "1m" "date +%H:%M")
+
+(defwidget date []
+  (box :class "date"
+    :space-evenly false
+    (label :text "${time_poll}  󰃶  ${date_poll}")
+  )
+)
+
+; ━━━━ vars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget ram []
+  (label :class "ram" :text "    ${round(EWW_RAM.used_mem/1042897408, 2)} / ${round(EWW_RAM.total_mem/1042897408, 0)} GB")
+)
+
+(defwidget cpu []
+  (label :class "cpu" :text "${round(EWW_CPU.cores[0].freq/1000,1)}GHz | ${round(EWW_CPU.avg, 0)}%")
+)
+
+(defwidget temp []
+  (label :class "temp" :text "  ${round(EWW_TEMPS.K10TEMP_TCTL, 0)}°C")
+)
+
+; ━━━━ etc ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget pwbutton []
+  (button :class "pwbutton" :onclick "wlogout &" "  ")
+)
