@@ -22,7 +22,6 @@
     )
     (box :class "center" :halign "center" :spacing 20
       (cava)
-      ;(cava_reversed)
     )
     (box :class "right" :halign "end" :spacing 20 :space-evenly false
       (ram)
@@ -120,18 +119,15 @@
 
 ; ━━━━ volume ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
-(deflisten speakers :initial '{ "volume": 0, "muted": "false" }' "./modules/listen-volume.sh")
+(defpoll speakers :interval "10s" :initial "0" "pactl get-sink-volume @DEFAULT_SINK@ | awk 'NR==1{print $5}'")
 
 (defwidget speakers []
   (tooltip 
-    (label :class "tooltip" :text "${ speakers.volume }%")
+    (label :class "tooltip" :text "${ speakers }%")
     (box :class "speakers"
-      :space-evenly false
-      (button :class "icon ${ speakers.volume > 100 ? 'over' : '' } ${ speakers.muted ? 'muted' : '' }"
+      (button :class "speakers"
         :onclick "pavucontrol &"  
-        (label :text "${ speakers.muted ? '󰖁 ' : 
-                        speakers.volume > 70 ? ' ' :
-                        ' ' } ${speakers.volume}% "
+        (label :text "  ${speakers} "
         )
       )
     )
