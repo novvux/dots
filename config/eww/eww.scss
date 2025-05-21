@@ -1,60 +1,64 @@
-$rosewater: #f5e0dc;
-$flamingo: #f2cdcd;
-$pink: #f5c2e7;
-$mauve: #cba6f7;
-$red: #f38ba8;
-$maroon: #eba0ac;
-$peach: #fab387;
-$yellow: #f9e2af;
-$green: #a6e3a1;
-$teal: #94e2d5;
-$sky: #89dceb;
-$sapphire: #74c7ec;
-$blue: #89b4fa;
-$lavender: #b4befe;
-$text: #cdd6f4;
-$subtext1: #bac2de;
-$subtext0: #a6adc8;
-$overlay2: #9399b2;
-$overlay1: #7f849c;
-$overlay0: #6c7086;
-$surface2: #585b70;
-$surface1: #45475a;
-$surface0: #313244;
-$base: #1e1e2e;
-$mantle: #181825;
-$crust: #11111b;
+/* gruvbox material */
+$bg_dim: #141617;
+$bg0: #1d2021;
+$bg1: #282828;
+$bg2: #282828;
+$bg3: #3c3836;
+$bg4: #3c3836;
+$bg5: #504945;
+$bg_statusline1: #282828;
+$bg_statusline2: #32302f;
+$bg_statusline3: #504945;
+
+$bg_diff_green: #32361a;
+$bg_visual_green: #333e34;
+$bg_diff_red: #3c1f1e;
+$bg_visual_red: #442e2d;
+$bg_diff_blue: #0d3138;
+$bg_visual_blue: #2e3b3b;
+$bg_visual_yellow: #473c29;
+
+$bg_current_word: #32302f;
+$fg0: #d4be98;
+$fg1: #ddc7a1;
+
+$red: #ea6962;
+$orange: #e78a4e;
+$yellow: #d8a657;
+$green: #a9b665;
+$aqua: #89b482;
+$blue: #7daea3;
+$purple: #d3869b;
+
+$bg_red: #ea6962;
+$bg_green: #a9b665;
+$bg_yellow: #d8a657;
+
+$grey0: #7c6f64;
+$grey1: #928374;
+$grey2: #a89984;
 
 
 * {
   all: unset;
   font-size: 12px;
   border-radius: 10px;
-  color: $text;
+  color: $fg0;
 }
 
 .bar {
   padding: 0px 10px;
-  background-color: rgba($color: $base, $alpha: 0.2);
+  background-color: rgba($color: $bg_dim, $alpha: 0.2);
 }
 
-.left {
-  background-color: $base;
-  padding: 0px 10px;
-}
-
-.center {
-  background-color: $base;
-}
-
-.right {
-  background-color: $base;
+.left, .center, .right {
+  background-color: $bg_dim;
   padding: 0px 10px;
 }
 
 .cava {
   margin: 0px 10px;
-  color: rgba($color: $peach, $alpha: 0.7);
+  color: rgba($color: $yellow, $alpha: 0.7);
 }
 
 .track {
@@ -62,20 +66,20 @@ $crust: #11111b;
 }
 
 .ram {
-  color: #ebcb8b;
+  color: $yellow;
 }
 
 .cpu {
-  color: #fb958b;
+  color: $red;
 }
 
 .temp {
-  background-color: $surface0;
+  background-color: $bg1;
   padding: 0px 5px;
 }
 
 .workspaces {
-  background-color: $surface0;
+  background-color: $bg1;
 }
 
 .workspace {
@@ -84,16 +88,15 @@ $crust: #11111b;
 }
 
 .workspace:hover {
-  background-color: $surface1;
+  background-color: $bg4;
 }
 
 .workspace-active {
-  color: #74c7ec;
-  background-color: $surface2;
+  background-color: $bg5;
 }
 
-.date {
-  background-color: $surface0;
+.date, .pwbutton {
+  background-color: $bg0;
   padding: 0px 5px;
 }
 
@@ -101,7 +104,68 @@ $crust: #11111b;
   -gtk-icon-transform: scale(0.7);
 }
 
-.pwbutton {
-  background-color: $surface0;
-  padding: 0px 5px;
+@keyframes aee {
+  from {background-color: $red;}
+  to {background-color: $bg0;}
+}
+
+.up-home {
+  background-color: $bg_dim;
+  margin: 10px;
+}
+
+.center-home {
+  background-color: $bg_dim;
+  margin: 10px;
+}
+
+.down-home {
+  margin: 10px;
+  background-color: $bg_dim;
+  animation-name: aee;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.blink {
+  animation-name: blink;
+  animation-duration: 1.2s;
+  animation-timing-function: steps(2);
+  animation-iteration-count: infinite;
+}
+
+.flicker {
+  // 10 steps since we are using increments of 10% in the keyframes
+  animation: flicker 1.5s steps(10);
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
 }

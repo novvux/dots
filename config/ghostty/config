@@ -2,25 +2,7 @@ custom-shader = shaders/bettercrt.glsl
 #custom-shader = shaders/gears-and-belts.glsl
 #custom-shader = shaders/glow-rgbsplit-twitchy.glsl
 #custom-shader = shaders/tft.glsl
+theme = gruvbox-material
 
-palette = 0=#2a1603  
-palette = 1=#d6550a  
-palette = 2=#de600b  
-palette = 3=#e96c0c  
-palette = 4=#f4780d  
-palette = 5=#ff840e  
-palette = 6=#ff900f  
-palette = 7=#f0e3d5  
-palette = 8=#3b1e05  
-palette = 9=#e7651c  
-palette = 10=#f1721d 
-palette = 11=#ff7f1e 
-palette = 12=#ff8c1f 
-palette = 13=#ff9820 
-palette = 14=#ffa521 
-palette = 15=#ffffff 
-cursor-color = #f47500  
-background = #1c0f01    
-foreground = #ff7a66    
 selection-background = #f0e3d5  
 selection-foreground = #1c0f01  

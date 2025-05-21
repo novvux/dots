@@ -9,6 +9,12 @@
                :focusable false
   (bar))
 
+(defwindow homescreen :monitor 0 :geometry (geometry :x 30 :y "5%" :height "85%" :width "20%" :anchor "top left") :stacking "bg"
+  (box
+    (homewidget)
+  )
+)
+
 ; ━━━━ bars ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
 
 (defwidget bar [] 
@@ -164,4 +170,21 @@
 
 (defwidget pwbutton []
   (button :class "pwbutton" :onclick "wlogout &" "  ")
+)
+
+; ━━━━ homescreen stuff ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╸
+
+(defwidget homewidget []
+  (box :class "homewidget" :orientation "v"
+    (box :class "up-home"
+      (label :text "AAA")
+      (box :class "blink" "_")
+    )
+    (box :class "center-home flicker"
+      (label :text "BBB")
+    )
+    (box :class "down-home"
+      (label :text "CCC")
+    )
+  )
 )
